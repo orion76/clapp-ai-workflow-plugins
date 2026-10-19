@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "types": ["node"],
+    "paths": {
+      "@clapp/common": ["../common/dist/clapp-common.d.ts"],
+      "@clapp/command": ["../command/dist/clapp-command.d.ts"],
+      "@clapp/core": ["../core/dist/clapp-core.d.ts"],
+      "@clapp/utils": ["../utils/dist/clapp-utils.d.ts"]
+    }
+  },
+  // `plugins/**` is deliberately NOT compiled here (same known debt as the
+  // hosts of this library): the build is out of scope for now, so only
+  // `src/**` goes to `dist`.
+  "include": ["src/**/*.ts"]
+}
