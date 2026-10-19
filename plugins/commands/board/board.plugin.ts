@@ -18,6 +18,7 @@ import {
   type: PLUGIN_COMMAND_TYPE,
   kind: COMMAND_KIND_GROUP,
   id: 'board',
+  command: 'board',
   label: 'Work with the task board',
   config: {},
 })

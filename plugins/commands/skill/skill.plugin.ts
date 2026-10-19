@@ -12,7 +12,7 @@ import {
 /**
  * Command group `skill`: the path prefix of the `skill/*` entities of the host.
  *
- * The group only contributes its id to the path of its subcommands, so the resource
+ * The group only contributes its `command` to the path of its subcommands, so the resource
  * `skill/list` and the tool `skill/add` are built from it (the CLI invokes them as
  * `skill list` and `skill add`). It carries no options of its own and has no surface of its
  * own: both engines walk a node with children as a container and never expose the group, so no
@@ -22,6 +22,7 @@ import {
   type: PLUGIN_COMMAND_TYPE,
   kind: COMMAND_KIND_GROUP,
   id: 'skill',
+  command: 'skill',
   label: 'Work with opencode skills',
   config: {},
 })

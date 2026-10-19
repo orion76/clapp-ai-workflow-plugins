@@ -28,7 +28,8 @@ import type { ISkillListCommandConfig } from './types.js';
 @NodePlugin<IFormatterCommandDefinitionData<ISkillListCommandConfig>>({
   type: PLUGIN_COMMAND_TYPE,
   kind: COMMAND_KIND_RESOURCE,
-  id: 'list',
+  id: 'skill_list',
+  command: 'list',
   parent: 'skill',
   label: 'List opencode skills',
   formatter: 'table',

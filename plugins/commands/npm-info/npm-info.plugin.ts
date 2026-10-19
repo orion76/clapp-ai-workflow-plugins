@@ -17,6 +17,7 @@ import type { INpmInfoCommandConfig } from './types.js';
   type: PLUGIN_COMMAND_TYPE,
   kind: COMMAND_KIND_RESOURCE,
   id: 'npm-info',
+  command: 'npm-info',
   label: 'Show local package.json info',
   formatter: 'key-value',
   config: {

@@ -19,6 +19,7 @@ import type { IInitCommandConfig } from './types.js';
   type: PLUGIN_COMMAND_TYPE,
   kind: COMMAND_KIND_TOOL,
   id: 'init',
+  command: 'init',
   label: 'Initialize opencode artifacts in a project',
   formatter: 'key-value',
   config: {

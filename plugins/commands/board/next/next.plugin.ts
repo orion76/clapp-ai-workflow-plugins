@@ -15,7 +15,8 @@ import type { IBoardNextCommandConfig } from './types.js';
 @NodePlugin<IPluginCommandDefinitionData<IBoardNextCommandConfig>>({
   type: PLUGIN_COMMAND_TYPE,
   kind: COMMAND_KIND_RESOURCE,
-  id: 'next',
+  id: 'board_next',
+  command: 'next',
   parent: 'board',
   label: 'Pick the next actionable task',
   config: {

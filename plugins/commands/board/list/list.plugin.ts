@@ -15,7 +15,8 @@ import type { IBoardListCommandConfig } from './types.js';
 @NodePlugin<IPluginCommandDefinitionData<IBoardListCommandConfig>>({
   type: PLUGIN_COMMAND_TYPE,
   kind: COMMAND_KIND_RESOURCE,
-  id: 'list',
+  id: 'board_list',
+  command: 'list',
   parent: 'board',
   label: 'List the board overview',
   config: {

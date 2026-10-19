@@ -25,6 +25,7 @@ import type { IBriefCommandConfig } from './types.js';
   type: PLUGIN_COMMAND_TYPE,
   kind: COMMAND_KIND_PROMPT,
   id: 'brief',
+  command: 'brief',
   label: 'Brief the model on a goal',
   formatter: 'ordered-list',
   config: {

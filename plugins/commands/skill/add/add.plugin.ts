@@ -29,7 +29,8 @@ import type { ISkillAddCommandConfig } from './types.js';
 @NodePlugin<IFormatterCommandDefinitionData<ISkillAddCommandConfig>>({
   type: PLUGIN_COMMAND_TYPE,
   kind: COMMAND_KIND_TOOL,
-  id: 'add',
+  id: 'skill_add',
+  command: 'add',
   parent: 'skill',
   label: 'Create a new opencode skill',
   formatter: 'key-value',
