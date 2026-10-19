@@ -6,8 +6,7 @@
   "license": "MIT",
   "author": "Paul Glazkow",
   "files": [
-    "dist",
-    "plugins"
+    "dist"
   ],
   "exports": {
     ".": {

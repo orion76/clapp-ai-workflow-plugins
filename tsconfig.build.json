@@ -14,8 +14,8 @@
       "@clapp/utils": ["../utils/dist/clapp-utils.d.ts"]
     }
   },
-  // `plugins/**` is deliberately NOT compiled here (same known debt as the
-  // hosts of this library): the build is out of scope for now, so only
-  // `src/**` goes to `dist`.
+  // The command plugins of this package now live under `src/plugins/**`, so the
+  // whole `src/**` tree (library plus plugins) goes to `dist` — the build is
+  // out of scope for now, but the layout is uniform.
   "include": ["src/**/*.ts"]
 }
