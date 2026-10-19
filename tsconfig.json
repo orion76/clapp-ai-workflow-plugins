@@ -1,0 +1,22 @@
+{
+  // `paths` is deliberately NOT redeclared here. `paths` are not merged on
+  // inheritance: a local `paths` block displaces every root alias, so
+  // `@clapp/*`/`@orion76/*` would resolve through `node_modules` to the stale
+  // `dist` artifacts. Inheriting the root `paths` keeps them pointing at the
+  // monorepo sources. TypeScript anchors inherited `paths` at the config that
+  // declares them (`pathsBasePath`), so the root entries stay relative to the
+  // repository root. Dev mode (`tsx`) is unaffected: it applies
+  // `tsconfig.dev.json`, which declares its own `paths`; the build is out of
+  // scope for now (`tsconfig.build.json` is not created yet), so the package
+  // sources are only compiled by the hosts and by the test program.
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "plugins/**/*.ts"
+  ]
+}

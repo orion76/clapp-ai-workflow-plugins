@@ -1,0 +1,59 @@
+{
+  "name": "@clapp/ai-workflow-plugins",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Plugin library for AI-assisted development workflow automation (opencode artifacts): the shared commands and logic of the CLI and MCP hosts",
+  "license": "MIT",
+  "author": "Paul Glazkow",
+  "files": [
+    "dist",
+    "plugins"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/public-api.d.ts",
+      "default": "./dist/public-api.js"
+    }
+  },
+  "keywords": [
+    "ai",
+    "opencode",
+    "skills",
+    "agent",
+    "plugins"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orion76/clapp.git",
+    "directory": "packages/ai-workflow-plugins"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "npm run clean && tsc -p tsconfig.build.json",
+    "clean": "rm -rf dist",
+    "test": "echo tests for clapp ai-workflow plugins!",
+    "test:jest": "jest"
+  },
+  "peerDependencies": {
+    "@clapp/command": "^0.0.3-alpha.14",
+    "@clapp/common": "^0.0.1",
+    "@clapp/core": "^0.0.7-alpha.16",
+    "@clapp/utils": "^0.0.4",
+    "inversify": "^8.2.3",
+    "reflect-metadata": "^0.2.2"
+  },
+  "dependencies": {
+    "@orion76/node-plugin": "^0.3.0",
+    "tslib": "^2.4.0",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.10.1",
+    "jest": "^30.2.0",
+    "ts-jest": "^29.4.5",
+    "typescript": "^5.9.3"
+  }
+}
