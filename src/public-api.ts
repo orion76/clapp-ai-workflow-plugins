@@ -10,3 +10,5 @@ export * from './lib/opencode/config.js';
 export * from './lib/opencode/init.js';
 export * from './lib/opencode/instructions.js';
 export * from './lib/opencode/skills.js';
+export * from './lib/task/projects.js';
+export * from './lib/task/tasks.js';
