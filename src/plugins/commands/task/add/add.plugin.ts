@@ -11,9 +11,10 @@ import {
   type TFormatterData,
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
+  IPluginCommand,
 } from '@clapp/command';
 
-import type { ITaskAddCommandConfig } from './types.js';
+import type { ITaskAddCommandConfig, ITaskAddCommandContext } from './types.js';
 
 /**
  * Tool `task_add`: creates a new task in the task workflow.
@@ -25,7 +26,7 @@ import type { ITaskAddCommandConfig } from './types.js';
  * of the MCP tool result. A validation error or existing task without `force` — is returned as a
  * failed result, so the surface answers with the error and the server keeps its stdout for the protocol stream.
  */
-@NodePlugin<IFormatterCommandDefinitionData<ITaskAddCommandConfig>>({
+@NodePlugin<IFormatterCommandDefinitionData<ITaskAddCommandConfig, ITaskAddCommandContext>>({
   type: PLUGIN_COMMAND_TYPE,
   kind: COMMAND_KIND_TOOL,
   id: 'task_add',
@@ -33,25 +34,30 @@ import type { ITaskAddCommandConfig } from './types.js';
   parent: 'task',
   label: 'Create a new task',
   formatter: 'key-value',
+  contexts: ['project'],
   config: {
     description: 'Create a new task in the task workflow',
     arguments: [
       { name: 'project', description: 'Project name (workspace package name or "root")', required: true },
       { name: 'name', description: 'Task name (kebab-case)', required: true },
     ],
-    options: [
-      { name: 'description', description: 'Task description', type: 'string' },
-    ],
+    options: [{ name: 'description', description: 'Task description', type: 'string' }],
   },
 })
 @injectable()
-export class TaskAddCommandPlugin extends PluginCommandBase<ITaskAddCommandConfig> {
+export class TaskAddCommandPlugin
+  extends PluginCommandBase<ITaskAddCommandConfig, ITaskAddCommandContext>
+  implements IPluginCommand<ITaskAddCommandConfig, ITaskAddCommandContext>
+{
   /**
    * Creates a new task and reports it as key-value data.
    * @param args Command arguments
    * @returns Data for the `key-value` formatter, or a failed result carrying the validation error
    */
-  async action(args: ITaskAddCommandConfig): Promise<ICommandResult<TFormatterData<'key-value'>>> {
+  async action(
+    args: ITaskAddCommandConfig,
+    { project: contextProject }: ITaskAddCommandContext,
+  ): Promise<ICommandResult<TFormatterData<'key-value'>>> {
     const { project, name, description } = args;
 
     // Resolve the project path

@@ -16,7 +16,7 @@ import {
  * The group carries no options of its own — the core never applies `config` of a node
  * with children, and `dir`/`project`/`name` are declared by the subcommands.
  */
-@NodePlugin<IPluginCommandDefinitionData<{}>>({
+@NodePlugin<IPluginCommandDefinitionData>({
   type: PLUGIN_COMMAND_TYPE,
   kind: COMMAND_KIND_GROUP,
   id: 'task',
@@ -25,7 +25,7 @@ import {
   config: {},
 })
 @injectable()
-export class TaskCommandPlugin extends PluginCommandBase<{}> {
+export class TaskCommandPlugin extends PluginCommandBase {
   /**
    * Unreachable defensive fallback.
    *
