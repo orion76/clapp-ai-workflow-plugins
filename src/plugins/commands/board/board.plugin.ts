@@ -7,7 +7,7 @@ import {
   type IPluginCommandDefinitionData,
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
-} from '@clapp/command';
+} from '@clapp/common';
 
 /**
  * Command group `board`: it only groups the `list` and `next` subcommands.

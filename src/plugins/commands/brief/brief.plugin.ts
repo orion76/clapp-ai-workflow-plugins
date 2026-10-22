@@ -8,7 +8,7 @@ import {
   type TFormatterData,
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
-} from '@clapp/command';
+} from '@clapp/common';
 
 import type { IBriefCommandConfig } from './types.js';
 

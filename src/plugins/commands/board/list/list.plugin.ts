@@ -7,7 +7,7 @@ import {
   type IPluginCommandDefinitionData,
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
-} from '@clapp/command';
+} from '@clapp/common';
 
 import { listBoard, resolveBoardDir } from '@clapp/ai-workflow-plugins';
 import type { IBoardListCommandConfig } from './types.js';

@@ -8,7 +8,7 @@ import {
   type TFormatterData,
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
-} from '@clapp/command';
+} from '@clapp/common';
 
 import { buildPackageInfoData, isKnownInfoType, NPM_INFO_TYPES, readPackageJson } from '@clapp/ai-workflow-plugins';
 import type { INpmInfoCommandConfig } from './types.js';

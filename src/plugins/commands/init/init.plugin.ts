@@ -10,7 +10,7 @@ import {
   type TFormatterData,
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
-} from '@clapp/command';
+} from '@clapp/common';
 
 import { buildInitResultData, initProject } from '@clapp/ai-workflow-plugins';
 import type { IInitCommandConfig } from './types.js';

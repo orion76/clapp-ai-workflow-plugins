@@ -11,7 +11,7 @@ import {
   type TFormatterData,
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
-} from '@clapp/command';
+} from '@clapp/common';
 
 import type { ITaskTodoCommandConfig } from './types.js';
 

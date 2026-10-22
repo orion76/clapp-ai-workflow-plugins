@@ -7,7 +7,7 @@ import {
   type IPluginCommandDefinitionData,
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
-} from '@clapp/command';
+} from '@clapp/common';
 
 /**
  * Command group `skill`: the path prefix of the `skill/*` entities of the host.

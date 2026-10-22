@@ -7,7 +7,7 @@ import {
   type IPluginCommandDefinitionData,
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
-} from '@clapp/command';
+} from '@clapp/common';
 
 import { nextBoard, resolveBoardDir } from '@clapp/ai-workflow-plugins';
 import type { IBoardNextCommandConfig } from './types.js';

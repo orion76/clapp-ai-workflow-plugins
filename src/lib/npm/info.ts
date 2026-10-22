@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
-import type { IKeyValueData, IKeyValuePair, IKeyValueSection } from '@clapp/command';
+import type { IKeyValueData, IKeyValuePair, IKeyValueSection } from '@clapp/common';
 import type { IPackageJson } from '@clapp/utils';
 
 export type UNpmInfoType = 'summary' | 'deps' | 'scripts' | 'meta' | 'bin' | 'all';

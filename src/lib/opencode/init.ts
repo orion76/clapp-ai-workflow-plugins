@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 
-import type { IKeyValueData } from '@clapp/command';
+import type { IKeyValueData } from '@clapp/common';
 
 import { getAgentsDir } from './agents.js';
 import { createConfigFileIfMissing, resolveConfigPath } from './config.js';

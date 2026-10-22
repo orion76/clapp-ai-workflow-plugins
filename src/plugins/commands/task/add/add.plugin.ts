@@ -12,7 +12,7 @@ import {
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
   IPluginCommand,
-} from '@clapp/command';
+} from '@clapp/common';
 
 import type { ITaskAddCommandConfig, ITaskAddCommandContext } from './types.js';
 
