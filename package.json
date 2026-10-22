@@ -36,7 +36,6 @@
     "test:jest": "jest"
   },
   "peerDependencies": {
-    "@clapp/command": "^0.0.3-alpha.14",
     "@clapp/common": "^0.0.1",
     "@clapp/core": "^0.0.7-alpha.16",
     "@clapp/utils": "^0.0.4",

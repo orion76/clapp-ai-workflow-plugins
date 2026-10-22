@@ -9,7 +9,6 @@
     "types": ["node"],
     "paths": {
       "@clapp/common": ["../common/dist/clapp-common.d.ts"],
-      "@clapp/command": ["../command/dist/clapp-command.d.ts"],
       "@clapp/core": ["../core/dist/clapp-core.d.ts"],
       "@clapp/utils": ["../utils/dist/clapp-utils.d.ts"]
     }
