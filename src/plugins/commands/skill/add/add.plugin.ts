@@ -1,16 +1,16 @@
 import path from 'node:path';
 
-import { injectable } from 'inversify';
 import { NodePlugin } from '@orion76/node-plugin';
+import { injectable } from 'inversify';
 
 import { resolveSkillScope, writeSkill } from '@clapp/ai-workflow-plugins';
 import {
   COMMAND_KIND_TOOL,
-  type ICommandResult,
-  type IFormatterCommandDefinitionData,
-  type TFormatterData,
+  IPluginCommandDefinitionData,
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
+  type ICommandResult,
+  type TFormatterData
 } from '@clapp/common';
 
 import type { ISkillAddCommandConfig } from './types.js';
@@ -26,7 +26,7 @@ import type { ISkillAddCommandConfig } from './types.js';
  * without `force` — is returned as a failed result, so the surface answers with the error and
  * the server keeps its stdout for the protocol stream.
  */
-@NodePlugin<IFormatterCommandDefinitionData<ISkillAddCommandConfig>>({
+@NodePlugin<IPluginCommandDefinitionData<ISkillAddCommandConfig>>({
   type: PLUGIN_COMMAND_TYPE,
   kind: COMMAND_KIND_TOOL,
   id: 'skill_add',

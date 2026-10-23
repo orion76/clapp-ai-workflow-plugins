@@ -8,8 +8,10 @@ import {
   type ICommandResult,
   type IPluginCommandDefinitionData,
   PLUGIN_COMMAND_TYPE,
-  PluginCommandBase,
+
 } from '@clapp/common';
+import { PluginCommandBase } from '@clapp/common';
+
 
 /**
  * Command group `task`: it only groups the `list`, `add` and `todo` subcommands.

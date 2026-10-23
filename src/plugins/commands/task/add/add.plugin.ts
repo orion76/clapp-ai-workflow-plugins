@@ -1,17 +1,16 @@
-import path from 'node:path';
 
-import { injectable } from 'inversify';
 import { NodePlugin } from '@orion76/node-plugin';
+import { injectable } from 'inversify';
 
 import { createTask, resolveTaskTarget } from '@clapp/ai-workflow-plugins';
 import {
   COMMAND_KIND_TOOL,
-  type ICommandResult,
-  type IFormatterCommandDefinitionData,
-  type TFormatterData,
+  IPluginCommand,
+  IPluginCommandDefinitionData,
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
-  IPluginCommand,
+  type ICommandResult,
+  type TFormatterData
 } from '@clapp/common';
 
 import type { ITaskAddCommandConfig, ITaskAddCommandContext } from './types.js';
@@ -26,7 +25,7 @@ import type { ITaskAddCommandConfig, ITaskAddCommandContext } from './types.js';
  * of the MCP tool result. A validation error or existing task without `force` — is returned as a
  * failed result, so the surface answers with the error and the server keeps its stdout for the protocol stream.
  */
-@NodePlugin<IFormatterCommandDefinitionData<ITaskAddCommandConfig, ITaskAddCommandContext>>({
+@NodePlugin<IPluginCommandDefinitionData<ITaskAddCommandConfig, ITaskAddCommandContext>>({
   type: PLUGIN_COMMAND_TYPE,
   kind: COMMAND_KIND_TOOL,
   id: 'task_add',

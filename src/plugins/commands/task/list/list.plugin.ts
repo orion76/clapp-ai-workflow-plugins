@@ -1,16 +1,16 @@
-import path from 'node:path';
 
-import { injectable } from 'inversify';
 import { NodePlugin } from '@orion76/node-plugin';
+import { injectable } from 'inversify';
 
-import { listTasks, readTaskMeta } from '@clapp/ai-workflow-plugins';
+import { listTasks } from '@clapp/ai-workflow-plugins';
 import {
   COMMAND_KIND_RESOURCE,
-  type ICommandResult,
-  type IFormatterCommandDefinitionData,
-  type TFormatterData,
+  IPluginCommandDefinitionData,
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
+  type ICommandResult,
+
+  type TFormatterData,
 } from '@clapp/common';
 
 import type { ITaskListCommandConfig } from './types.js';
@@ -23,7 +23,7 @@ import type { ITaskListCommandConfig } from './types.js';
  * the `table` formatter renders the `id`/`title`/`done`/`total`/`active` columns, and the core
  * prints that text — to stdout of the CLI, as the content of the MCP resource.
  */
-@NodePlugin<IFormatterCommandDefinitionData<ITaskListCommandConfig>>({
+@NodePlugin<IPluginCommandDefinitionData<ITaskListCommandConfig>>({
   type: PLUGIN_COMMAND_TYPE,
   kind: COMMAND_KIND_RESOURCE,
   id: 'task_list',

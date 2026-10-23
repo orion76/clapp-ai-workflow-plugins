@@ -1,19 +1,19 @@
-import { injectable } from 'inversify';
 import { NodePlugin } from '@orion76/node-plugin';
+import { injectable } from 'inversify';
 
 import {
   COMMAND_KIND_RESOURCE,
-  type ICommandResult,
-  type IFormatterCommandDefinitionData,
-  type TFormatterData,
+  IPluginCommandDefinitionData,
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
+  type ICommandResult,
+  type TFormatterData
 } from '@clapp/common';
 
 import { buildPackageInfoData, isKnownInfoType, NPM_INFO_TYPES, readPackageJson } from '@clapp/ai-workflow-plugins';
 import type { INpmInfoCommandConfig } from './types.js';
 
-@NodePlugin<IFormatterCommandDefinitionData<INpmInfoCommandConfig>>({
+@NodePlugin<IPluginCommandDefinitionData<INpmInfoCommandConfig>>({
   type: PLUGIN_COMMAND_TYPE,
   kind: COMMAND_KIND_RESOURCE,
   id: 'npm-info',

@@ -1,13 +1,13 @@
-import { injectable } from 'inversify';
 import { NodePlugin } from '@orion76/node-plugin';
+import { injectable } from 'inversify';
 
 import {
   COMMAND_KIND_PROMPT,
-  type ICommandResult,
-  type IFormatterCommandDefinitionData,
-  type TFormatterData,
+  IPluginCommandDefinitionData,
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
+  type ICommandResult,
+  type TFormatterData
 } from '@clapp/common';
 
 import type { IBriefCommandConfig } from './types.js';
@@ -21,7 +21,7 @@ import type { IBriefCommandConfig } from './types.js';
  * printing it: the engine renders the text through the formatter, and that text becomes the
  * content of the prompt, so nothing is written to stdout by the command itself.
  */
-@NodePlugin<IFormatterCommandDefinitionData<IBriefCommandConfig>>({
+@NodePlugin<IPluginCommandDefinitionData<IBriefCommandConfig>>({
   type: PLUGIN_COMMAND_TYPE,
   kind: COMMAND_KIND_PROMPT,
   id: 'brief',
