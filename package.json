@@ -33,17 +33,17 @@
     "build": "npm run clean && tsc -p tsconfig.build.json",
     "clean": "rm -rf dist",
     "test": "echo tests for clapp ai-workflow plugins!",
-    "test:jest": "jest"
+    "test:jest": "nx jest:test"
   },
   "peerDependencies": {
-    "@clapp/common": "^0.0.1",
-    "@clapp/core": "^0.0.7-alpha.16",
-    "@clapp/utils": "^0.0.4",
+    "@clapp/common": "workspace:*",
+    "@clapp/core": "workspace:*",
+    "@clapp/utils": "workspace:*",
     "inversify": "^8.2.3",
     "reflect-metadata": "^0.2.2"
   },
   "dependencies": {
-    "@orion76/node-plugin": "^0.3.0",
+    "@orion76/node-plugin": "workspace:*",
     "tslib": "^2.4.0",
     "yaml": "^2.9.1"
   },
