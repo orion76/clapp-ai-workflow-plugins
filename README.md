@@ -2,6 +2,8 @@
 
 > ⚠️ **В разработке.** Пакет ещё не готов к релизу: релиз ожидается в ближайшее время, API может меняться. Использовать в продакшне пока нельзя.
 
+**English** | [Русский](./docs/ru/README.md)
+
 # @clapp/ai-workflow-plugins
 
 The plugin library of the AI-assisted development workflow: the commands and the reusable logic behind the `clapp-ai` CLI and the `clapp-ai-mcp` server, covering the opencode artifacts (skills, commands, agents, instructions, config) plus the task workflow and the task board. It is a part of the [`orion76/clapp`](https://github.com/orion76/clapp) monorepo and is built on `@clapp/core` (plugin contracts and discovery) and `yaml`.
@@ -64,10 +66,6 @@ const next = nextBoard(`${process.env.HOME}/task-board`);
 | [`@clapp/utils`](https://www.npmjs.com/package/@clapp/utils)                 | [`orion76/clapp-utils`](https://github.com/orion76/clapp-utils)                           |
 | [`@clapp/ai-workflow-cli`](https://www.npmjs.com/package/@clapp/ai-workflow-cli) | [`orion76/clapp-ai-workflow-cli`](https://github.com/orion76/clapp-ai-workflow-cli)       |
 | [`@clapp/ai-workflow-mcp`](https://www.npmjs.com/package/@clapp/ai-workflow-mcp) | [`orion76/clapp-ai-workflow-mcp`](https://github.com/orion76/clapp-ai-workflow-mcp)       |
-
-## Русский
-
-`@clapp/ai-workflow-plugins` — библиотека плагинов для AI-workflow: команды и переиспользуемая логика работы с артефактами opencode (skills, commands, agents, instructions, config), задачами и доской задач. Один и тот же набор команд обслуживает CLI-хост `clapp-ai` и MCP-сервер `clapp-ai-mcp`: вид команды (`tool`, `resource`, `prompt`) определяет, на какую поверхность MCP она попадает. Пакет находится в активной разработке и ещё не опубликован в npm. Релиз ожидается в ближайшее время, но API и состав команд могут меняться без предупреждения. Использовать в продакшне пока нельзя.
 
 ## License
 
