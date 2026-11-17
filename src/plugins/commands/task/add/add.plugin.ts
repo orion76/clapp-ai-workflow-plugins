@@ -1,6 +1,6 @@
 
 import { NodePlugin } from '@orion76/node-plugin';
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 
 import { createTask, resolveTaskTarget } from '@clapp/ai-workflow-plugins';
 import {
@@ -9,6 +9,7 @@ import {
   IPluginCommandDefinitionData,
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
+  PROJECT_PATH,
   type ICommandResult,
   type TFormatterData
 } from '@clapp/common';
@@ -46,20 +47,17 @@ import type { ITaskAddCommandConfig, ITaskAddCommandContext } from './types.js';
 @injectable()
 export class TaskAddCommandPlugin
   extends PluginCommandBase<ITaskAddCommandConfig>
-  implements IPluginCommand<ITaskAddCommandConfig>
-{
-  project = inject
+  implements IPluginCommand<ITaskAddCommandConfig> {
+
+  @inject(PROJECT_PATH) project!: string
   /**
    * Creates a new task and reports it as key-value data.
    * @param args Command arguments
    * @returns Data for the `key-value` formatter, or a failed result carrying the validation error
    */
-  async action(
-    args: ITaskAddCommandConfig,
-    { project: contextProject }: ITaskAddCommandContext,
-  ): Promise<ICommandResult<TFormatterData<'key-value'>>> {
-    const { project, name, description } = args;
-
+  async action(args: ITaskAddCommandConfig): Promise<ICommandResult<TFormatterData<'key-value'>>> {
+    const { name, description } = args;
+    const { project } = this;
     // Resolve the project path
     let projectPath: string;
     let projectType: 'root' | 'workspace';
