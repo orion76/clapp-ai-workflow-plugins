@@ -27,6 +27,15 @@ export default {
     '^@clapp/common$': '<rootDir>/../common/src/index.ts',
     '^@clapp/core$': '<rootDir>/../core/src/index.ts',
     '^@clapp/utils$': '<rootDir>/../utils/src/index.ts',
+    // `@orion76/*` sources live outside the workspace (sibling repository), and their
+    // `exports` point to unbuilt `lib/`/`dist`, so they are mapped to `src` through the
+    // root `node_modules` links. The path must stay inside the workspace: @nx/jest turns
+    // every moduleNameMapper value into a task input, and a `../..` fileset fails native
+    // hashing before jest starts. Through `node_modules` the plugin sees an external
+    // dependency instead.
+    '^@orion76/node-plugin$': '<rootDir>/../../node_modules/@orion76/node-plugin/src/public-api.ts',
+    '^@orion76/plugin$': '<rootDir>/../../node_modules/@orion76/plugin/src/public-api.ts',
+    '^@orion76/logger$': '<rootDir>/../../node_modules/@orion76/logger/src/public-api.ts',
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
 };
