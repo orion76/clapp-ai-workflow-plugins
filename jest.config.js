@@ -22,6 +22,11 @@ export default {
     // and `exports` points at `dist`, which dev mode never builds, so the name
     // is mapped straight to the barrel source.
     '^@clapp/ai-workflow-plugins$': '<rootDir>/src/public-api.ts',
+    // Tests compile the sources directly: map the workspace packages to `src` so a
+    // jest run does not depend on prebuilt `packages/*/dist` bundles.
+    '^@clapp/common$': '<rootDir>/../common/src/index.ts',
+    '^@clapp/core$': '<rootDir>/../core/src/index.ts',
+    '^@clapp/utils$': '<rootDir>/../utils/src/index.ts',
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
 };
