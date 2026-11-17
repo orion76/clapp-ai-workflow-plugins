@@ -34,7 +34,7 @@
     "build": "npm run clean && tsc -p tsconfig.build.json",
     "clean": "rm -rf dist",
     "test": "echo tests for clapp ai-workflow plugins!",
-    "test:jest": "nx jest:test"
+    "test:jest": "jest"
   },
   "peerDependencies": {
     "@clapp/common": "workspace:*",
