@@ -44,7 +44,7 @@
     "reflect-metadata": "^0.2.2"
   },
   "dependencies": {
-    "@orion76/node-plugin": "workspace:*",
+    "@orion76/node-plugin": "link:../../../@orion76/projects/node-plugin",
     "tslib": "^2.4.0",
     "yaml": "^2.9.1"
   },

@@ -6,7 +6,9 @@
 
 # @clapp/ai-workflow-plugins
 
-The plugin library of the AI-assisted development workflow: the commands and the reusable logic behind the `clapp-ai` CLI and the `clapp-ai-mcp` server, covering the opencode artifacts (skills, commands, agents, instructions, config) plus the task workflow and the task board. It is a part of the [`orion76/clapp`](https://github.com/orion76/clapp) monorepo and is built on `@clapp/core` (plugin contracts and discovery) and `yaml`.
+The package is published from its own repository, [`orion76/clapp-ai-workflow-plugins`](https://github.com/orion76/clapp-ai-workflow-plugins); it is developed together with the `clapp` host workspace and its `clapp-ai` / `clapp-ai-mcp` hosts ([`orion76/clapp`](https://github.com/orion76/clapp)).
+
+The plugin library of the AI-assisted development workflow: the commands and the reusable logic behind the `clapp-ai` CLI and the `clapp-ai-mcp` server, covering the opencode artifacts (skills, commands, agents, instructions, config) plus the task workflow and the task board. It is built on `@clapp/core` (plugin contracts and discovery) and `yaml`.
 
 ## Features
 
@@ -21,7 +23,7 @@ The plugin library of the AI-assisted development workflow: the commands and the
 
 ## Installation
 
-The package is not published to npm yet, so `npm install @clapp/ai-workflow-plugins` does not resolve until the first release. Until then it is consumed as a workspace package of the monorepo:
+The package is not published to npm yet, so `npm install @clapp/ai-workflow-plugins` does not resolve until the first release. Until then it is consumed as a workspace package of the `clapp` host workspace ([`orion76/clapp`](https://github.com/orion76/clapp)):
 
 ```bash
 npm install @clapp/ai-workflow-plugins

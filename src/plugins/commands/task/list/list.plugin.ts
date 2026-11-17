@@ -1,27 +1,34 @@
-
 import { NodePlugin } from '@orion76/node-plugin';
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 
-import { listTasks } from '@clapp/ai-workflow-plugins';
+import {
+  isTaskItemStatus,
+  listTaskItems,
+  listTasks,
+  TASK_ITEM_STATUSES,
+  type ITaskSelectionCriteria,
+  type UTaskItemStatus,
+} from '@clapp/ai-workflow-plugins';
 import {
   COMMAND_KIND_RESOURCE,
+  CURRENT_PROJECT_PATH,
   IPluginCommandDefinitionData,
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
   type ICommandResult,
-
+  type TContextAccessor,
   type TFormatterData,
 } from '@clapp/common';
 
 import type { ITaskListCommandConfig } from './types.js';
 
 /**
- * Resource `task_list`: lists tasks for a project.
+ * Resource `task/list`: the tasks of the current project, or their plan items.
  *
- * A read-only query, so it maps to the MCP Resources surface under the path `task/list` and is
- * invoked as `task list <project>` by the CLI. The command returns its data instead of printing it:
- * the `table` formatter renders the `id`/`title`/`done`/`total`/`active` columns, and the core
- * prints that text — to stdout of the CLI, as the content of the MCP resource.
+ * The root of the project comes from the `current-project-path` context, never from an argument.
+ * Without a `status`/`group`/`executor` criterion the command lists tasks (id | title | done |
+ * total | active); with one of them it lists the plan items of every task (task | id | group |
+ * status | executor | text).
  */
 @NodePlugin<IPluginCommandDefinitionData<ITaskListCommandConfig>>({
   type: PLUGIN_COMMAND_TYPE,
@@ -32,51 +39,89 @@ import type { ITaskListCommandConfig } from './types.js';
   label: 'List tasks',
   formatter: 'table',
   config: {
-    description: 'List tasks in a project',
-    arguments: [
-      { name: 'project', description: 'Project name (workspace package name or "root")', required: true },
+    description:
+      'List the tasks of the current project, or the plan items of all its tasks when status/group/executor is given',
+    options: [
+      {
+        name: 'active',
+        description: 'Keep the active task only: --active in the CLI, true or false in the URI',
+        type: 'boolean',
+      },
+      {
+        name: 'status',
+        description: 'Plan item status: todo, in-progress, done, question, deferred, blocked or cancelled',
+        type: 'string',
+        required: true,
+        choices: [...TASK_ITEM_STATUSES],
+      },
+      {
+        name: 'group',
+        description: 'Plan item group id, the groups[].id of the plan',
+        type: 'string',
+        required: true,
+      },
+      {
+        name: 'executor',
+        description: 'Plan item executor: coder, tester, reviewer or planner',
+        type: 'string',
+        required: true,
+      },
     ],
   },
 })
 @injectable()
 export class TaskListCommandPlugin extends PluginCommandBase<ITaskListCommandConfig> {
+  @inject(CURRENT_PROJECT_PATH) private readonly currentProjectPath!: TContextAccessor<string>;
+
   /**
-   * Collects the tasks as table data. An empty list yields empty data, so the
-   * formatter prints nothing instead of a placeholder line.
-   * @param args Command arguments
-   * @returns Table data with the id/title/done/total/active columns
+   * Collects the selection as table data. An empty selection yields empty data, so the formatter
+   * prints nothing instead of a placeholder line.
+   * @param args Selection criteria of the command
+   * @returns Table data of the task mode or of the item mode, or a failed result naming the reason
    */
   async action(args: ITaskListCommandConfig): Promise<ICommandResult<TFormatterData<'table'>>> {
-    const project = args.project;
+    const { active, status, group, executor } = args;
 
-    let tasks: any[];
+    let itemStatus: UTaskItemStatus | undefined;
+    if (status !== undefined) {
+      if (!isTaskItemStatus(status)) {
+        return {
+          success: false,
+          error: [`Unknown status "${status}". Allowed statuses: ${TASK_ITEM_STATUSES.join(' | ')}`],
+        };
+      }
+
+      itemStatus = status;
+    }
+
+    let projectRoot: string;
     try {
-      tasks = await listTasks(project);
-    } catch (e) {
-      // If project is unknown, return failed result with list of available projects
-      const repoRoot = await import('@clapp/ai-workflow-plugins').then(m => m.resolveRepoRoot());
-      const projects = await import('@clapp/ai-workflow-plugins').then(m => m.collectWorkspaceProjects(repoRoot));
-      const available = Array.from(projects.keys()).join(', ');
+      projectRoot = await this.currentProjectPath();
+    } catch (error) {
+      return { success: false, error: [error instanceof Error ? error.message : String(error)] };
+    }
+
+    if (itemStatus !== undefined || group !== undefined || executor !== undefined) {
+      const criteria: ITaskSelectionCriteria = { active, status: itemStatus, group, executor };
+      const items = await listTaskItems(projectRoot, criteria);
+
       return {
-        success: false,
-        error: [`Unknown project "${project}". Available projects: ${available || 'root'}`],
+        success: true,
+        data: {
+          headers: ['task', 'id', 'group', 'status', 'executor', 'text'],
+          rows: items.map((item) => [item.task, item.id, item.group, item.status, item.executor, item.text]),
+        },
       };
     }
 
-    // Build table rows
-    const rows = tasks.map((task: any) => [
-      task.id,
-      task.title,
-      `${task.done}/${task.total}`,
-      `${task.done}/${task.total}`,
-      task.active ? 'yes' : 'no',
-    ]);
+    const tasks = await listTasks(projectRoot);
+    const selected = active === undefined ? tasks : tasks.filter((task) => task.active === active);
 
     return {
       success: true,
       data: {
         headers: ['id', 'title', 'done', 'total', 'active'],
-        rows,
+        rows: selected.map((task) => [task.id, task.title, task.done, task.total, task.active ? 'yes' : 'no']),
       },
     };
   }

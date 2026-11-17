@@ -25,7 +25,7 @@ import type { ITaskAddCommandConfig, ITaskAddCommandContext } from './types.js';
  * of the MCP tool result. A validation error or existing task without `force` — is returned as a
  * failed result, so the surface answers with the error and the server keeps its stdout for the protocol stream.
  */
-@NodePlugin<IPluginCommandDefinitionData<ITaskAddCommandConfig, ITaskAddCommandContext>>({
+@NodePlugin<IPluginCommandDefinitionData<ITaskAddCommandConfig>>({
   type: PLUGIN_COMMAND_TYPE,
   kind: COMMAND_KIND_TOOL,
   id: 'task_add',
@@ -33,7 +33,7 @@ import type { ITaskAddCommandConfig, ITaskAddCommandContext } from './types.js';
   parent: 'task',
   label: 'Create a new task',
   formatter: 'key-value',
-  contexts: ['project'],
+
   config: {
     description: 'Create a new task in the task workflow',
     arguments: [
@@ -45,9 +45,10 @@ import type { ITaskAddCommandConfig, ITaskAddCommandContext } from './types.js';
 })
 @injectable()
 export class TaskAddCommandPlugin
-  extends PluginCommandBase<ITaskAddCommandConfig, ITaskAddCommandContext>
-  implements IPluginCommand<ITaskAddCommandConfig, ITaskAddCommandContext>
+  extends PluginCommandBase<ITaskAddCommandConfig>
+  implements IPluginCommand<ITaskAddCommandConfig>
 {
+  project = inject
   /**
    * Creates a new task and reports it as key-value data.
    * @param args Command arguments
@@ -64,7 +65,7 @@ export class TaskAddCommandPlugin
     let projectType: 'root' | 'workspace';
 
     try {
-      const resolved = resolveTaskTarget({ project, name });
+      const resolved = await resolveTaskTarget({ project, name });
       projectType = resolved.projectType;
       projectPath = resolved.projectPath;
     } catch (e: any) {

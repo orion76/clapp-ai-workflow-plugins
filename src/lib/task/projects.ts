@@ -6,7 +6,7 @@ import { join, resolve } from 'node:path';
  * Получает корень git-репозитория из указанной директории.
  * Выбрасывает ошибку, если git недоступен.
  */
-export function resolveRepoRoot(startDir: string = process.cwd(): string): string {
+export function resolveRepoRoot(startDir: string = process.cwd()): string {
   let dir = resolve(startDir);
   try {
     return execSync('git rev-parse --show-toplevel', { encoding: 'utf8' }).trim();
@@ -27,7 +27,7 @@ export interface WorkspaceProject {
   tasksDir: string;
 }
 
-export function collectWorkspaceProjects(repoRoot: string): Map<string, WorkspaceProject> {
+export async function collectWorkspaceProjects(repoRoot: string): Promise<Map<string, WorkspaceProject>> {
   const pkgPath = join(repoRoot, 'package.json');
   let pkg: Record<string, unknown>;
   try {
@@ -110,10 +110,10 @@ export function collectWorkspaceProjects(repoRoot: string): Map<string, Workspac
  * Разрешает имя проекта: 'root' → корень репозитория,
  * неизвестное имя → ошибка с перечём доступных.
  */
-export function resolveProject(
+export async function resolveProject(
   repoRoot: string,
   projectName?: string
-): { type: 'root' | 'workspace'; path: string } {
+): Promise<{ type: 'root' | 'workspace'; path: string }> {
   if (!projectName) {
     throw new Error(
       'Project name is required (no context fallback). Pass "root" or a workspace package name.'
@@ -125,7 +125,7 @@ export function resolveProject(
   }
 
   // Check if it's a known workspace package
-  const projects = collectWorkspaceProjects(repoRoot);
+  const projects = await collectWorkspaceProjects(repoRoot);
   if (projects.has(projectName)) {
     return { type: 'workspace', path: projects.get(projectName)!.path };
   }
@@ -142,9 +142,9 @@ export function resolveProject(
  * Возвращает { projectType, projectPath, taskName }.
  * Оба project и name обязательны (required: true).
  */
-export function resolveTaskTarget(
+export async function resolveTaskTarget(
   args: { project: string; name: string }
-): { projectType: 'root' | 'workspace'; projectPath: string; taskName: string } {
+): Promise<{ projectType: 'root' | 'workspace'; projectPath: string; taskName: string }> {
   const repoRoot = resolveRepoRoot();
   const { project, name } = args;
 
@@ -159,7 +159,7 @@ export function resolveTaskTarget(
     projectType = 'root';
     projectPath = repoRoot;
   } else {
-    const resolved = resolveProject(repoRoot, project);
+    const resolved = await resolveProject(repoRoot, project);
     projectType = resolved.type;
     projectPath = resolved.path;
   }
