@@ -14,8 +14,10 @@ export default {
     ],
   },
   // inversify 8 and @orion76 packages ship ESM only; let ts-jest transpile them
-  // and their scoped deps.
-  transformIgnorePatterns: ['/node_modules/(?!inversify|@inversifyjs|@orion76)'],
+  // and their scoped deps. Under pnpm the packages live in node_modules/.pnpm/...,
+  // so the .pnpm node must be transformed too (its first path segment after
+  // node_modules/ is `.pnpm`, which previously fell through to the ignore).
+  transformIgnorePatterns: ['/node_modules/(?!\\.pnpm|inversify|@inversifyjs|@orion76)'],
   moduleNameMapper: {
     // The plugins of this package import its public API by package name. Under
     // jest the runtime does not read the tsconfig `paths` of the test program,
