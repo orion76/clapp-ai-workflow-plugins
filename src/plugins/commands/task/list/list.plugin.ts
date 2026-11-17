@@ -16,7 +16,6 @@ import {
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
   type ICommandResult,
-  type TContextAccessor,
   type TFormatterData,
 } from '@clapp/common';
 
@@ -71,7 +70,7 @@ import type { ITaskListCommandConfig } from './types.js';
 })
 @injectable()
 export class TaskListCommandPlugin extends PluginCommandBase<ITaskListCommandConfig> {
-  @inject(CURRENT_PROJECT_PATH) private readonly currentProjectPath!: TContextAccessor<string>;
+  @inject(CURRENT_PROJECT_PATH) private readonly currentProjectPath!: string;
 
   /**
    * Collects the selection as table data. An empty selection yields empty data, so the formatter
@@ -94,12 +93,7 @@ export class TaskListCommandPlugin extends PluginCommandBase<ITaskListCommandCon
       itemStatus = status;
     }
 
-    let projectRoot: string;
-    try {
-      projectRoot = await this.currentProjectPath();
-    } catch (error) {
-      return { success: false, error: [error instanceof Error ? error.message : String(error)] };
-    }
+    const projectRoot = this.currentProjectPath;
 
     if (itemStatus !== undefined || group !== undefined || executor !== undefined) {
       const criteria: ITaskSelectionCriteria = { active, status: itemStatus, group, executor };
