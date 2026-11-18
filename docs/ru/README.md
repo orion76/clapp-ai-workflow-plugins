@@ -33,12 +33,12 @@ npm install @clapp/ai-workflow-plugins
 
 ```yaml
 plugins:
-  PLUGIN_COMMAND:
+  command:
     sources:
       - type: library
         library: '@clapp/ai-workflow-plugins'
         patterns:
-          - src/plugins/commands/**/*.plugin.{js,ts}
+          - src/plugins/command/**/*.plugin.{js,ts}
 ```
 
 ### Как библиотека

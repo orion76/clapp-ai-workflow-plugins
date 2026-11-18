@@ -7,9 +7,9 @@ import 'reflect-metadata';
 
 import { getPluginDefinition } from '@orion76/node-plugin';
 
-import { InitCommandPlugin } from '../src/plugins/commands/init/init.plugin.js';
-import { NpmInfoCommandPlugin } from '../src/plugins/commands/npm-info/npm-info.plugin.js';
-import { SkillListCommandPlugin } from '../src/plugins/commands/skill/list/list.plugin.js';
+import { InitCommandPlugin } from '../src/plugins/command/init/init.plugin.js';
+import { NpmInfoCommandPlugin } from '../src/plugins/command/npm-info/npm-info.plugin.js';
+import { SkillListCommandPlugin } from '../src/plugins/command/skill/list/list.plugin.js';
 import { initProject } from '../src/lib/opencode/init.js';
 import { writeSkill } from '../src/lib/opencode/skills.js';
 

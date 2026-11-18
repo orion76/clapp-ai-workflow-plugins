@@ -37,12 +37,12 @@ A host only declares this package as a command source in its `clapp.config.yml`;
 
 ```yaml
 plugins:
-  PLUGIN_COMMAND:
+  command:
     sources:
       - type: library
         library: '@clapp/ai-workflow-plugins'
         patterns:
-          - src/plugins/commands/**/*.plugin.{js,ts}
+          - src/plugins/command/**/*.plugin.{js,ts}
 ```
 
 ### As a library
