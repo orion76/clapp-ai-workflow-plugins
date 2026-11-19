@@ -7,19 +7,19 @@ import {
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
   type ICommandResult,
-  type TFormatterData
 } from '@clapp/common';
 
-import type { IBriefCommandConfig } from './types.js';
+import type { IBriefCommandConfig, IBriefData } from './types.js';
 
 /**
  * Prompt `brief`: hands the model a short instruction and checklist for a goal.
  *
  * A prompt is not an action in the project, so the command declares the prompt kind and maps
  * to the prompt surface of whichever host runs it (the `brief` prompt of the MCP server, the
- * `brief` command of the CLI). It returns its instruction as `ordered-list` data instead of
- * printing it: the engine renders the text through the formatter, and that text becomes the
- * content of the prompt, so nothing is written to stdout by the command itself.
+ * `brief` command of the CLI). It returns its instruction as ordered-list data instead of
+ * printing it: the data schema `brief` declares the title, the description and the checklist, and
+ * the engine renders that data through the formatter the app config maps to the schema, so the
+ * text becomes the content of the prompt and nothing is written to stdout by the command itself.
  */
 @NodePlugin<IPluginCommandDefinitionData<IBriefCommandConfig>>({
   type: PLUGIN_COMMAND_TYPE,
@@ -27,7 +27,7 @@ import type { IBriefCommandConfig } from './types.js';
   id: 'brief',
   command: 'brief',
   label: 'Brief the model on a goal',
-  formatter: 'ordered-list',
+  dataSchema: 'brief',
   config: {
     description: 'Send the model a short instruction and checklist for a goal',
     arguments: [{ name: 'goal', description: 'What the model should focus on', required: true }],
@@ -49,7 +49,7 @@ export class BriefCommandPlugin extends PluginCommandBase<IBriefCommandConfig> {
    * @param args Command arguments
    * @returns Ordered-list data with the goal, depth and checklist items
    */
-  async action(args: IBriefCommandConfig): Promise<ICommandResult<TFormatterData<'ordered-list'>>> {
+  async action(args: IBriefCommandConfig): Promise<ICommandResult<IBriefData>> {
     if (!args.goal) {
       return { success: false, error: ['The "goal" argument is required'] };
     }

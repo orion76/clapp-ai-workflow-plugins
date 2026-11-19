@@ -1,0 +1,21 @@
+# Data of the `brief` command of @clapp/ai-workflow-plugins.
+# The instruction and its checklist: plain text items, so no marker and no completion flags.
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: brief
+title: Data of the `brief` command
+description: A titled checklist with the goal and depth it was built for.
+type: object
+required: [title, description, items]
+additionalProperties: false
+properties:
+  title:
+    description: Title of the list.
+    type: string
+  description:
+    description: Goal and depth the checklist was built for.
+    type: string
+  items:
+    description: Checklist items in the order they are proposed.
+    type: array
+    items:
+      type: string

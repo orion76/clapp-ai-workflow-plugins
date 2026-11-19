@@ -1,0 +1,33 @@
+# Data of the `skill list` command of @clapp/ai-workflow-plugins.
+# One table whose rows are objects keyed by the headers, unlike the cell arrays of `task-list`.
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: skill-list
+title: Data of the `skill list` command
+description: A single table with the `name`, `scope` and `description` columns of the skills.
+type: object
+required: [headers, rows]
+additionalProperties: false
+properties:
+  headers:
+    description: Column headers of the skills.
+    type: array
+    items:
+      type: string
+  rows:
+    description: Rows of the skills, keyed by the headers.
+    type: array
+    items:
+      type: object
+      required: [name, scope, description]
+      additionalProperties: false
+      properties:
+        name:
+          description: Directory name of the skill.
+          type: string
+        scope:
+          description: Storage the skill was read from.
+          type: string
+          enum: [project, global]
+        description:
+          description: Description declared by the skill; empty when it declares none.
+          type: string

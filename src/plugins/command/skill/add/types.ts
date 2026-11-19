@@ -1,3 +1,5 @@
+import type { IKeyValueData, IKeyValuePair } from '@clapp/common';
+
 /** Arguments of the `skill/add` command. */
 export interface ISkillAddCommandConfig {
   /** Skill name (lowercase alphanumeric with single hyphens). */
@@ -10,4 +12,12 @@ export interface ISkillAddCommandConfig {
   scope?: string;
   /** Overwrite an existing skill. */
   force?: boolean;
+}
+
+/** Data of the `skill/add` command: the created skill as key-value pairs. */
+export interface ISkillAddData extends IKeyValueData {
+  /** Heading above the pairs. */
+  title: string;
+  /** Name, scope and path of the created skill. */
+  pairs: IKeyValuePair[];
 }

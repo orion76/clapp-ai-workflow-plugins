@@ -1,0 +1,53 @@
+# Data of the `npm-info` command of @clapp/ai-workflow-plugins.
+# The requested projection of package.json: which of the fields are filled depends on the info type.
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: npm-info
+title: Data of the `npm-info` command
+description: Top-level pairs and titled sections of the requested package.json fields.
+type: object
+additionalProperties: false
+properties:
+  title:
+    description: Heading above everything else; the projection sets none.
+    type: string
+  description:
+    description: Text under the title; the projection sets none.
+    type: string
+  pairs:
+    description: Fields of the projection that are rendered before the sections.
+    type: array
+    items:
+      type: object
+      required: [key]
+      additionalProperties: false
+      properties:
+        key:
+          description: Name of the package.json field.
+          type: string
+        value:
+          description: Value of the field, serialized when it is not a string.
+          type: [string, number, boolean, 'null']
+  sections:
+    description: Groups of fields, one per dependency kind, scripts or meta block.
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      properties:
+        title:
+          description: Heading of the section, carrying the pair count.
+          type: string
+        pairs:
+          description: Fields of the section.
+          type: array
+          items:
+            type: object
+            required: [key]
+            additionalProperties: false
+            properties:
+              key:
+                description: Name of the package.json field.
+                type: string
+              value:
+                description: Value of the field, serialized when it is not a string.
+                type: [string, number, boolean, 'null']

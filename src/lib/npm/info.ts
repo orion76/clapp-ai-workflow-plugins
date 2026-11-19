@@ -158,7 +158,7 @@ export function isKnownInfoType(type: string): type is UNpmInfoType {
  * Build the key-value data of the requested info type. Pure: performs no output.
  * @param pkg Parsed package.json
  * @param type Known info type
- * @returns Data for the `key-value` formatter; a type with no matching fields yields empty data
+ * @returns Data of the `npm-info` command; a type with no matching fields yields empty data
  */
 export function buildPackageInfoData(pkg: IPackageJson, type: UNpmInfoType): IKeyValueData {
   return INFO_BUILDERS[type](pkg as TPackageJsonData);

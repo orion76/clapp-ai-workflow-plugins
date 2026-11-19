@@ -56,9 +56,9 @@ export function initProject(targetDir: string): IInitResult {
 /**
  * Build the key-value data of an init run. Pure: performs no output.
  * @param result Result of {@link initProject}
- * @returns Data for the `key-value` formatter: a title and the artifact paths
+ * @returns Data of the `init` command: the title and the artifact pairs, both always set
  */
-export function buildInitResultData(result: IInitResult): IKeyValueData {
+export function buildInitResultData(result: IInitResult): Required<Pick<IKeyValueData, 'title' | 'pairs'>> {
   const state = (created: boolean): string => (created ? 'created' : 'existing');
 
   return {

@@ -7,11 +7,10 @@ import {
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
   type ICommandResult,
-  type TFormatterData
 } from '@clapp/common';
 
 import { buildPackageInfoData, isKnownInfoType, NPM_INFO_TYPES, readPackageJson } from '@clapp/ai-workflow-plugins';
-import type { INpmInfoCommandConfig } from './types.js';
+import type { INpmInfoCommandConfig, INpmInfoData } from './types.js';
 
 @NodePlugin<IPluginCommandDefinitionData<INpmInfoCommandConfig>>({
   type: PLUGIN_COMMAND_TYPE,
@@ -19,7 +18,7 @@ import type { INpmInfoCommandConfig } from './types.js';
   id: 'npm-info',
   command: 'npm-info',
   label: 'Show local package.json info',
-  formatter: 'key-value',
+  dataSchema: 'npm-info',
   config: {
     description: 'Print fields of the current directory package.json by info type',
     arguments: [
@@ -39,9 +38,9 @@ export class NpmInfoCommandPlugin extends PluginCommandBase<INpmInfoCommandConfi
    * data. An unknown type and a missing package.json stay `success: false`, so
    * the core reports the error instead of formatting it.
    * @param args Command arguments
-   * @returns Key-value data of the requested info type
+   * @returns Data of the requested info type
    */
-  async action(args: INpmInfoCommandConfig): Promise<ICommandResult<TFormatterData<'key-value'>>> {
+  async action(args: INpmInfoCommandConfig): Promise<ICommandResult<INpmInfoData>> {
     const type = args.type ?? 'summary';
 
     if (!isKnownInfoType(type)) {

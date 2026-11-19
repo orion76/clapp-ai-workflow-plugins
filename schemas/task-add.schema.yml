@@ -1,0 +1,27 @@
+# Data of the `task add` command of @clapp/ai-workflow-plugins.
+# The created task as key-value pairs: no sections and no description are produced.
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: task-add
+title: Data of the `task add` command
+description: A titled list of pairs naming the created task, its project, its path and its activity.
+type: object
+required: [title, pairs]
+additionalProperties: false
+properties:
+  title:
+    description: Heading above the pairs.
+    type: string
+  pairs:
+    description: Name, project, path and activity of the created task.
+    type: array
+    items:
+      type: object
+      required: [key]
+      additionalProperties: false
+      properties:
+        key:
+          description: Name of the reported field.
+          type: string
+        value:
+          description: Value of the reported field.
+          type: [string, number, boolean, 'null']

@@ -1,0 +1,27 @@
+# Data of the `init` command of @clapp/ai-workflow-plugins.
+# The artifacts that were created or found, as key-value pairs under a title naming the directory.
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: init
+title: Data of the `init` command
+description: A titled list of pairs with the paths of the config, the directories and the instructions file.
+type: object
+required: [title, pairs]
+additionalProperties: false
+properties:
+  title:
+    description: Heading naming the initialized directory.
+    type: string
+  pairs:
+    description: Paths of the config, the skills, the commands and the agents directories, and the instructions file.
+    type: array
+    items:
+      type: object
+      required: [key]
+      additionalProperties: false
+      properties:
+        key:
+          description: Name of the reported artifact.
+          type: string
+        value:
+          description: Path of the artifact and whether it was created.
+          type: [string, number, boolean, 'null']

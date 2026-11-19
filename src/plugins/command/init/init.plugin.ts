@@ -9,11 +9,10 @@ import {
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
   type ICommandResult,
-  type TFormatterData
 } from '@clapp/common';
 
 import { buildInitResultData, initProject } from '@clapp/ai-workflow-plugins';
-import type { IInitCommandConfig } from './types.js';
+import type { IInitCommandConfig, IInitData } from './types.js';
 
 @NodePlugin<IPluginCommandDefinitionData<IInitCommandConfig>>({
   type: PLUGIN_COMMAND_TYPE,
@@ -21,7 +20,7 @@ import type { IInitCommandConfig } from './types.js';
   id: 'init',
   command: 'init',
   label: 'Initialize opencode artifacts in a project',
-  formatter: 'key-value',
+  dataSchema: 'init',
   config: {
     description: 'Initialize opencode artifacts (skills, commands, agents, config, AGENTS.md)',
     options: [{ name: 'dir', description: 'Target project directory', type: 'string' }],
@@ -32,9 +31,9 @@ export class InitCommandPlugin extends PluginCommandBase<IInitCommandConfig> {
   /**
    * Scaffolds the opencode artifacts and returns them as key-value data.
    * @param args Command arguments
-   * @returns Key-value data with a title and the artifact paths
+   * @returns Data with a title and the artifact paths
    */
-  async action(args: IInitCommandConfig): Promise<ICommandResult<TFormatterData<'key-value'>>> {
+  async action(args: IInitCommandConfig): Promise<ICommandResult<IInitData>> {
     const targetDir = path.resolve(args.dir ?? process.cwd());
 
     return { success: true, data: buildInitResultData(initProject(targetDir)) };

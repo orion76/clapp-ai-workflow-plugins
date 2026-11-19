@@ -16,10 +16,9 @@ import {
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
   type ICommandResult,
-  type TFormatterData,
 } from '@clapp/common';
 
-import type { ITaskListCommandConfig } from './types.js';
+import type { ITaskListCommandConfig, ITaskListData } from './types.js';
 
 /**
  * Resource `task/list`: the tasks of the current project, or their plan items.
@@ -36,7 +35,7 @@ import type { ITaskListCommandConfig } from './types.js';
   command: 'list',
   parent: 'task',
   label: 'List tasks',
-  formatter: 'table',
+  dataSchema: 'task-list',
   config: {
     description:
       'List the tasks of the current project, or the plan items of all its tasks when status/group/executor is given',
@@ -73,12 +72,12 @@ export class TaskListCommandPlugin extends PluginCommandBase<ITaskListCommandCon
   @inject(CURRENT_PROJECT_PATH) private readonly currentProjectPath!: string;
 
   /**
-   * Collects the selection as table data. An empty selection yields empty data, so the formatter
+   * Collects the selection as table data. An empty selection yields empty data, so the engine
    * prints nothing instead of a placeholder line.
    * @param args Selection criteria of the command
    * @returns Table data of the task mode or of the item mode, or a failed result naming the reason
    */
-  async action(args: ITaskListCommandConfig): Promise<ICommandResult<TFormatterData<'table'>>> {
+  async action(args: ITaskListCommandConfig): Promise<ICommandResult<ITaskListData>> {
     const { active, status, group, executor } = args;
 
     let itemStatus: UTaskItemStatus | undefined;

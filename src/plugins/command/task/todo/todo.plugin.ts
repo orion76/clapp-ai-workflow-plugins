@@ -9,18 +9,18 @@ import {
   PLUGIN_COMMAND_TYPE,
   PluginCommandBase,
   type ICommandResult,
-  type TFormatterData
 } from '@clapp/common';
 
-import type { ITaskTodoCommandConfig } from './types.js';
+import type { ITaskTodoCommandConfig, ITaskTodoData } from './types.js';
 
 /**
  * Resource `task_todo`: shows the todo plan for a task.
  *
  * A read-only query, so it maps to the MCP Resources surface under the path `task/todo` and is
  * invoked as `task todo <project> <name>` by the CLI. The command returns its data instead of printing it:
- * the `table` formatter renders the `id`/`group`/`status`/`text` columns, and the core
- * prints that text — to stdout of the CLI, as the content of the MCP resource.
+ * the data schema `task-todo` declares the `id`/`group`/`status`/`text` columns, and the core
+ * renders that data through the formatter the app config maps to the schema — to stdout of the CLI,
+ * as the content of the MCP resource.
  */
 @NodePlugin<IPluginCommandDefinitionData<ITaskTodoCommandConfig>>({
   type: PLUGIN_COMMAND_TYPE,
@@ -29,7 +29,7 @@ import type { ITaskTodoCommandConfig } from './types.js';
   command: 'todo',
   parent: 'task',
   label: 'Show task todo plan',
-  formatter: 'table',
+  dataSchema: 'task-todo',
   config: {
     description: 'Show task todo plan',
     arguments: [
@@ -42,11 +42,11 @@ import type { ITaskTodoCommandConfig } from './types.js';
 export class TaskTodoCommandPlugin extends PluginCommandBase<ITaskTodoCommandConfig> {
   /**
    * Reads the todo plan and returns table data. An empty plan yields empty data, so the
-   * formatter prints nothing instead of a placeholder line.
+   * engine prints nothing instead of a placeholder line.
    * @param args Command arguments
    * @returns Table data with the id/group/status/text columns
    */
-  async action(args: ITaskTodoCommandConfig): Promise<ICommandResult<TFormatterData<'table'>>> {
+  async action(args: ITaskTodoCommandConfig): Promise<ICommandResult<ITaskTodoData>> {
     const { project, name } = args;
 
     let todoData: any;

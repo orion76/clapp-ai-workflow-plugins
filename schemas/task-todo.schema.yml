@@ -1,0 +1,23 @@
+# Data of the `task todo` command of @clapp/ai-workflow-plugins.
+# One table: the plan items of a task, flattened from its groups.
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: task-todo
+title: Data of the `task todo` command
+description: A single table with the `id`, `group`, `status` and `text` columns of the plan items.
+type: object
+required: [headers, rows]
+additionalProperties: false
+properties:
+  headers:
+    description: Column headers of the plan items.
+    type: array
+    items:
+      type: string
+  rows:
+    description: Rows of the plan items, every cell placed by its header order.
+    type: array
+    items:
+      type: array
+      items:
+        description: A cell of the table.
+        type: [string, number, boolean]

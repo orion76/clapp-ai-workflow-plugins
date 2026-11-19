@@ -1,0 +1,23 @@
+# Data of the `task list` command of @clapp/ai-workflow-plugins.
+# One table: the tasks of the project, or the plan items of every task when a criterion is given.
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: task-list
+title: Data of the `task list` command
+description: A single table with the columns of the mode the selection criteria switch the command to.
+type: object
+required: [headers, rows]
+additionalProperties: false
+properties:
+  headers:
+    description: Column headers of the selected mode.
+    type: array
+    items:
+      type: string
+  rows:
+    description: Rows of the selected mode, every cell placed by its header order.
+    type: array
+    items:
+      type: array
+      items:
+        description: A cell of the table.
+        type: [string, number, boolean]
