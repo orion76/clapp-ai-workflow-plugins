@@ -14,10 +14,14 @@ import { initProject } from '../src/lib/opencode/init.js';
 import { writeSkill } from '../src/lib/opencode/skills.js';
 
 describe('command definitions', () => {
-  it('declares the formatter of every structural command', () => {
-    expect(getPluginDefinition(SkillListCommandPlugin)).toMatchObject({ formatter: 'table' });
-    expect(getPluginDefinition(NpmInfoCommandPlugin)).toMatchObject({ formatter: 'key-value' });
-    expect(getPluginDefinition(InitCommandPlugin)).toMatchObject({ formatter: 'key-value' });
+  it('names the data schema of every structural command', () => {
+    expect(getPluginDefinition(SkillListCommandPlugin)).toMatchObject({ dataSchema: 'skill-list' });
+    expect(getPluginDefinition(NpmInfoCommandPlugin)).toMatchObject({ dataSchema: 'npm-info' });
+    expect(getPluginDefinition(InitCommandPlugin)).toMatchObject({ dataSchema: 'init' });
+  });
+
+  it('declares no formatter of its own', () => {
+    expect(getPluginDefinition(SkillListCommandPlugin)).not.toHaveProperty('formatter');
   });
 });
 
